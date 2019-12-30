@@ -5,14 +5,23 @@ MAINTAINER @48cfu
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
+# Make sure CUDNN is detected
+ENV LD_LIBRARY_PATH /usr/local/cuda/lib64/:$LD_LIBRARY_PATH
+
 # Pick up some TF dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
+	wget \
+	apt-utils \
         build-essential \
         curl \
         libfreetype6-dev \
         libpng12-dev \
         libzmq3-dev \
         libicu-dev \
+	libopenblas-dev \ 
+	libgl1-mesa-dev \
+	libgl1-mesa-glx \
+	libosmesa6-dev \
         pkg-config \
 	python \
         python3-dev \
@@ -23,6 +32,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	git \
 	tcl-dev \
 	tk-dev \
+	openjdk-8-jdk \
+	gcc-4.8 \
+	g++-4.8 \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -37,16 +49,14 @@ RUN conda env create -f environment.yml
 # Cleanup tarballs and downloaded package files
 RUN conda clean -tp -y
 
+RUN ln -s /usr/local/cuda/lib64/libcudnn.so.5 /usr/local/cuda/lib64/libcudnn.so
+
 # Set up our notebook config.
 COPY jupyter_notebook_config.py /root/.jupyter/
 
 # Term 1 workdir
 RUN mkdir /src
 WORKDIR "/src"
-
-# Make sure CUDNN is detected
-ENV LD_LIBRARY_PATH /usr/local/cuda/lib64/:$LD_LIBRARY_PATH
-RUN ln -s /usr/local/cuda/lib64/libcudnn.so.5 /usr/local/cuda/lib64/libcudnn.so
 
 # TensorBoard
 EXPOSE 6006

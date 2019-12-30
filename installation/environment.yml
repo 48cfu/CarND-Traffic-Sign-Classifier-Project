@@ -2,6 +2,7 @@ name: carnd-term1
 channels:
     - https://conda.anaconda.org/menpo
     - conda-forge
+    - hcc
 dependencies:
     - python==3.5.2
     - numpy
@@ -20,6 +21,8 @@ dependencies:
     - imageio
     - pyqt=4.11.4
     - icu=56.1
+    - cuda-driver
+    - cudatoolkit==8.0
     - pip:
         - moviepy
         - opencv-python
