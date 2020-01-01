@@ -94,6 +94,9 @@ My final model consisted of the following layers (borrowed from the LeNet archit
 | Batch size         	| 128                                          	|
 | Learning rate 		| 0.001											|
 | Keep probability     	| 0.7                           				|
+| Loss function     	| Mean of the cross entropy of softmax of logits|
+| Optimizer          	| AdamOptimizer                        			|
+
 
 Naturally, the keep probability of the dropout regularizer used during evaluation is 1.
 
