@@ -134,6 +134,7 @@ Here are the results of the prediction:
 | No passing      		| No passing  									| 
 | Priority road    		| Priority road 								|
 | Stop				    | Stop											|
+| No entry | No entry |
 | Speed limit (30km/h)	| Speed limit (30km/h)			 				|
 | Road work			    | Road work     					    		|
 
